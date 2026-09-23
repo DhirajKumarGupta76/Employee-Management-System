@@ -8,13 +8,25 @@ import TaskContext from './context/TaskContext.jsx'
 createRoot(document.getElementById('root')).render(
   
 
+
+//  <StrictMode>
+//     <AuthContext>
+//         <TaskContext>
+//               <App />
+//         </TaskContext>
+      
+//     </AuthContext>
+//   </StrictMode>
+
 //rape
-    <AuthContext>
+<AuthContext>
         <TaskContext>
               <App />
         </TaskContext>
       
     </AuthContext>
+
+    
 
 
   
