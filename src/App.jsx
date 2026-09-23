@@ -11,22 +11,45 @@ import { getLocalStorage } from './utils/localstorage'
 function App() {
   console.log("🔥 APP.JSX IS RUNNING");
  
-  useEffect(() => {
-    console.log("App component loaded");
-    setLocalStorage();
-    getLocalStorage();
-    // localStorage.clear();
+  // useEffect(() => {
+  //   console.log("App component loaded");
+  //   setLocalStorage();
+  //   getLocalStorage();
+  //   // localStorage.clear();
     
-  },[]);
+  // },[]);
   
+const [User, setUser] = useState("")
+
+const handleLogin=(email,password)=>{
+  if(email=='Admin@me.com'&& password=='123'){
+    console.log('This is admin')
+    setUser('admin')
+    console.log(User)
+  }
+  else if (email=='User@me.com'&& password=='123'){
+    console.log('This is User')
+    setUser('employee')
+    console.log(User)
+  }
+  else{
+    alert("Invalid person")
+
+  }
+  
+}
+// handleLogin('admin@me.com','123')
+
 
   return (
     <>
-    <Login />
+    {!User?<Login handleLogin={handleLogin} />:""}
    
 
     {/* <EmployeeDeshboard /> */}
     {/* <AdminDeshboard /> */}
+
+    {User=='admin'?<AdminDeshboard /> : <EmployeeDeshboard />}
 
    
 
