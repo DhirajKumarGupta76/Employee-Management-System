@@ -40,6 +40,7 @@ function App() {
 // }, []);
   
 const [User, setUser] = useState("")
+
 const [loggedInUserData, setloggedInUserData] = useState(null)
 const  authData  = useContext(AuthContext);
 console.log("authData:",authData);
