@@ -1,144 +1,99 @@
-import React from "react";
+import React, { useState } from "react";
 
-const TaskList = ({data}) => {
+import NewTask from "./NewTask";
+import AcceptTask from "./AcceptTask";
+import CompleteTask from "./CompleteTask";
+import FailedTask from "./FailedTask";
+
+const TaskList = ({ data }) => {
+
+  const [tasks, setTasks] = useState(data.tasks);
+
+  // Accept Task
+  const handleAcceptTask = (taskNumber) => {
+
+    setTasks((prevTasks) =>
+      prevTasks.map((task) => {
+
+        if (task.taskNumber === taskNumber) {
+
+          return {
+            ...task,
+
+            taskType: "Accepted",
+
+            active: true,
+            newTask: false,
+            accepted: true,
+            completed: false,
+            failed: false,
+          };
+        }
+
+        return task;
+      })
+    );
+  };
+
+
   return (
-    // Main Task List Container
-    <div className="w-full h-[300px] grid grid-cols-3  overflow-y-auto space-y-0 gap-5 p-3 justify-center ">
+    <div
+      className="
+        w-full
+        h-[300px]
+        grid
+        grid-cols-4
+        overflow-y-auto
+        gap-5
+        p-3
+      "
+    >
 
-      {/* ================= TASK 1 ================= */}
-      <div className="
-        bg-[#c9704d]
-        text-white
-        rounded-xl
-        p-4
-        mb-2
-        shadow-md
-      ">
+      {tasks.map((task) => {
 
-        {/* Top Section */}
-        <div className="flex items-center justify-between ">
+        switch (task.taskType) {
 
-          {/* Priority */}
-          <span className="
-            bg-[#ba4248]
-            px-3
-            py-1
-            rounded-md
-            text-sm
-            font-bold
-          
-          ">
-            High
-          </span>
-
-          {/* Date */}
-          <span className="text-sm font-semibold">
-            20 Feb 2024
-          </span>
-
-        </div>
-
-        {/* Task Title */}
-        <h2 className="text-3xl font-bold mt-2 ">
-          Ek aur task
-        </h2>
-
-        {/* Task Description */}
-        <p className="text-sm mt-1">
-          Task jaisa kabhi nahi dekha hoga waisa
-        </p>
-
-      </div>
+          case "New":
+            return (
+              <NewTask
+                key={task.taskNumber}
+                task={task}
+                onAccept={handleAcceptTask}
+              />
+            );
 
 
-      {/* ================= TASK 2 ================= */}
-      <div className="
-        bg-[#adc76e]
-        text-white
-        rounded-2xl
-        p-4
-        mb-2
-        shadow-md
-      ">
-
-        {/* Top Section */}
-        <div className="flex items-center justify-between">
-
-          {/* Priority */}
-          <span className="
-            bg-[#b94e35]
-            px-3
-            py-1
-            rounded-md
-            text-sm
-            font-bold
-          ">
-            High
-          </span>
-
-          {/* Date */}
-          <span className="text-sm font-semibold">
-            20 Feb 2024
-          </span>
-
-        </div>
-
-        {/* Task Title */}
-        <h2 className="text-3xl font-bold mt-3">
-          Example Task
-        </h2>
-
-        {/* Task Description */}
-        <p className="text-sm mt-1">
-          Example aisa kahi nahi dekha hoga jaisa
-        </p>
-
-      </div>
+          case "Accepted":
+            return (
+              <AcceptTask
+                key={task.taskNumber}
+                task={task}
+              />
+            );
 
 
-      {/* ================= TASK 3 ================= */}
-      <div className="
-        bg-[#4a90e2]
-        text-white
-        rounded-2xl
-        p-4
-        mb-2
-        shadow-md
-      ">
+          case "Completed":
+            return (
+              <CompleteTask
+                key={task.taskNumber}
+                task={task}
+              />
+            );
 
-        {/* Top Section */}
-        <div className="flex items-center justify-between">
 
-          {/* Priority */}
-          <span className="
-            bg-[#b94e35]
-            px-3
-            py-1
-            rounded-md
-            text-sm
-            font-bold
-          ">
-            High
-          </span>
+          case "Failed":
+            return (
+              <FailedTask
+                key={task.taskNumber}
+                task={task}
+              />
+            );
 
-          {/* Date */}
-          <span className="text-sm font-semibold">
-            8 Feb 2024
-          </span>
 
-        </div>
-
-        {/* Task Title */}
-        <h2 className="text-3xl font-bold mt-3">
-          Complete Project
-        </h2>
-
-        {/* Task Description */}
-        <p className="text-sm mt-1">
-          Complete the assigned project before the deadline.
-        </p>
-
-      </div>
+          default:
+            return null;
+        }
+      })}
 
     </div>
   );

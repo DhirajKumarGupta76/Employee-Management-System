@@ -13,23 +13,36 @@ const Header = ({data}) => {
         flex
         items-center
         justify-between
-        px-6
-        py-2
+        
         shadow-lg
       "
     >
      
       {/* Employee Greeting */}
      
-      <div className="text-2xl font-bold">
-        <h1 className="text-6xl m-2.5 flex items-center justify-center">{data.id}</h1>
-        Hello,
-        <br />
+      <div className="flex flex-col items-center justify-center text-center py-7">
 
-        <span className="text-3xl text-blue-400">
-          {data.name} 👋
-        </span>
-      </div>
+  {/* Employee ID */}
+  <div className="text-6xl font-extrabold text-gray-800 mb-2 text-white">
+    {data.id}
+  </div>
+
+  {/* Greeting */}
+  <p className="text-2xl font-medium text-gray-500">
+    Hello,
+  </p>
+
+  {/* Employee Name */}
+  <h1 className="text-4xl font-bold text-blue-500 mt-1">
+    {data.name} <span className="inline-block">👋</span>
+  </h1>
+
+  {/* Subtitle */}
+  <p className="text-sm text-gray-400 mt-2 ">
+    Welcome back! Ready to get things done today?
+  </p>
+
+</div>
 
       {/* Logout Button */}
       <button
