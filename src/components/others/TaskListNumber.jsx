@@ -11,7 +11,7 @@ const TaskListNumber = ({data}) => {
         {/* New Task */}
         <div className="bg-[#4a90e2] rounded-lg p-4 text-black ">
           <h1 className="text-4xl font-bold">
-            {/* {data.taskNumber.newTask} */}
+            {data?.taskNumbers?.newTask}
           </h1>
 
           <h2 className="text-xl font-semibold mt-1">
@@ -22,7 +22,7 @@ const TaskListNumber = ({data}) => {
         {/* Completed */}
         <div className="bg-[#adc76e] rounded-lg p-4 text-black">
           <h1 className="text-4xl font-bold">
-            3
+            {data?.taskNumbers?.completed}
           </h1>
 
           <h2 className="text-xl font-semibold mt-1">
@@ -37,7 +37,7 @@ const TaskListNumber = ({data}) => {
         {/* Accepted */}
         <div className="bg-[#f6d365] rounded-lg p-4 text-black">
           <h1 className="text-4xl font-bold">
-            0
+            {data?.taskNumbers?.accepted}
           </h1>
 
           <h2 className="text-xl font-semibold mt-1">
@@ -48,7 +48,7 @@ const TaskListNumber = ({data}) => {
         {/* Failed */}
         <div className="bg-[#c9704d] rounded-lg p-4 text-black">
           <h1 className="text-4xl font-bold">
-            1
+            {data?.taskNumbers?.failed}
           </h1>
 
           <h2 className="text-xl font-semibold mt-1">
