@@ -13,20 +13,37 @@ import { useContext } from 'react'
 
 
 
+
 function App() {
-  // console.log("🔥 APP.JSX IS RUNNING");
  
-  // useEffect(() => {
-  //   console.log("App component loaded");
-  //   setLocalStorage();
-  //   getLocalStorage();
-  //   // localStorage.clear();
-    
-  // },[]);
+
+
+  // console.log("🔥 APP.JSX IS RUNNING");
+
+
+//  useEffect(() => {
+
+//   // Runs when the App component is loaded/mounted for the first time
+//   console.log("App component loaded");
+ 
+
+//   // Stores the latest Employees and Admin data in localStorage
+//   setLocalStorage();
+
+//   // Gets the Employees and Admin data from localStorage
+//   getLocalStorage();
+
+//   // Clears all data stored in localStorage
+//   // Used only for testing/debugging
+//   // localStorage.clear();
+
+// }, []);
   
 const [User, setUser] = useState("")
+const [loggedInUserData, setloggedInUserData] = useState(null)
 const  authData  = useContext(AuthContext);
 console.log("authData:",authData);
+console.log(User)
 
 // console.log("authData",authData.UserData.employees[4])
 
@@ -52,17 +69,23 @@ useEffect(() => {
 
 
 const handleLogin=(email,password)=>{
-  if(email=='Admin@me.com'&& password=='123'){
+  if(email=='admin@me.com'&& password=='123'){
     
     setUser('admin')
     console.log(User)
     localStorage.setItem('loggedInUser',JSON.stringify({role:'admin'}))
   }
-  else if (authData && authData.UserData.employees.find((e)=>e.email==email && e.password==password)){
+  else if (authData ){
+
     console.log('This is User')
-    setUser('employee')
-    localStorage.setItem('loggedInUser',JSON.stringify({role:'employee'}))
-    console.log(User)
+    const employee=authData.UserData.employees.find((e)=>e.email==email && e.password==password)
+    if(employee){
+      setUser('employee');
+      setloggedInUserData(employee)
+      localStorage.setItem('loggedInUser',JSON.stringify({role:'employee'}))
+    }
+    
+    // console.log(User)
   }
   else{
     alert("Invalid person")
@@ -82,10 +105,16 @@ const handleLogin=(email,password)=>{
 
     {/* <EmployeeDeshboard /> */}
     {/* <AdminDeshboard /> */}
+{/* 
+    {User=='admin'?<AdminDeshboard /> : <EmployeeDeshboard data={loggedInUserData} />} */}
 
-    {User=='admin'?<AdminDeshboard /> : <EmployeeDeshboard />}
+   {User === "admin" && (
+  <AdminDeshboard />
+)}
 
-   
+{User === "employee" && loggedInUserData && (
+  <EmployeeDeshboard data={loggedInUserData} />
+)}
 
     </>
    

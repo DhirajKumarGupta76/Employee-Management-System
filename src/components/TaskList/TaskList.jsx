@@ -1,6 +1,6 @@
 import React from "react";
 
-const TaskList = () => {
+const TaskList = ({data}) => {
   return (
     // Main Task List Container
     <div className="w-full h-[300px] grid grid-cols-3  overflow-y-auto space-y-0 gap-5 p-3 justify-center ">

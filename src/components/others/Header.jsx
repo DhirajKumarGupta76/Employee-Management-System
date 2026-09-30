@@ -1,7 +1,9 @@
 
 import React from "react";
 
-const Header = () => {
+const Header = ({data}) => {
+  console.log(data)
+ 
   return (
     <div
       className="
@@ -16,15 +18,18 @@ const Header = () => {
         shadow-lg
       "
     >
+     
       {/* Employee Greeting */}
-      <h1 className="text-2xl font-bold">
+     
+      <div className="text-2xl font-bold">
+        <h1 className="text-6xl m-2.5 flex items-center justify-center">{data.id}</h1>
         Hello,
         <br />
 
         <span className="text-3xl text-blue-400">
-          Dhiraj 👋
+          {data.name} 👋
         </span>
-      </h1>
+      </div>
 
       {/* Logout Button */}
       <button

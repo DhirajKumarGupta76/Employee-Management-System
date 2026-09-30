@@ -1,6 +1,7 @@
 import React from "react";
 
-const TaskListNumber = () => {
+const TaskListNumber = ({data}) => {
+  console.log(data)
   return (
     // Main container
     <div className="w-full gap-5 flex flex-col grid grid-cols-4 ">
@@ -10,7 +11,7 @@ const TaskListNumber = () => {
         {/* New Task */}
         <div className="bg-[#4a90e2] rounded-lg p-4 text-black ">
           <h1 className="text-4xl font-bold">
-            0
+            {/* {data.taskNumber.newTask} */}
           </h1>
 
           <h2 className="text-xl font-semibold mt-1">

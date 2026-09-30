@@ -54,18 +54,36 @@
 
 import React, { createContext, useState } from "react";
 import { getLocalStorage, setLocalStorage } from "../utils/localstorage";
-
+import { useEffect } from "react";
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  // Set data only once
-  if (!localStorage.getItem("employee") || !localStorage.getItem("admin")) {
+
+  const [UserData, setUserData] = useState(null);
+
+  useEffect(() => {
+
+    // Update localStorage with latest employee/admin data
     setLocalStorage();
-  }
 
-  const data = getLocalStorage();
+    // Get the data from localStorage
+    const data = getLocalStorage();
 
-  const [UserData, setUserData] = useState(data);
+    // Store data in React state
+    setUserData(data);
+
+  }, []);
+
+
+  // Always update localStorage with the latest
+  // Employees and Admin data from the data file
+  // setLocalStorage();
+
+  // Get the latest data after updating localStorage
+  // const data = getLocalStorage();
+
+  // Store the data inside Context
+  // const [UserData, setUserData] = useState(data);
 
   // console.log("UserData:", UserData);
   // console.log(UserData.employees)
