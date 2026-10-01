@@ -440,7 +440,7 @@ const Employees = [
 const Admin = [
   {
     id: 100,
-    name: "Rakesh",
+    name: "Dhiraj Kumar Gupta",
     email: "admin@gmail.com",
     password: "123"
   }

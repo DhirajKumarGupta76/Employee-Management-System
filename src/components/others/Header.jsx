@@ -29,7 +29,7 @@ const Header = ({ data }) => {
 
         {/* Employee ID */}
         <div className="text-6xl font-extrabold text-gray-800 mb-2 text-white">
-          {data.id}
+          {data?.id}
         </div>
 
         {/* Greeting */}
@@ -39,7 +39,7 @@ const Header = ({ data }) => {
 
         {/* Employee Name */}
         <h1 className="text-4xl font-bold text-blue-500 mt-1">
-          {data.name} <span className="inline-block">👋</span>
+          {data?.name} <span className="inline-block">👋</span>
         </h1>
 
         {/* Subtitle */}
