@@ -1,11 +1,30 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Header from '../others/Header'
-
+import { AuthContext } from '../../context/AuthProvider'
 
 const AdminDeshboard = ({
   setAdminPage,
   handleLogout
 }) => {
+    const { UserData } = useContext(AuthContext)
+
+  const allTasks = UserData?.employees?.flatMap(
+    (employee) => employee.tasks
+  ) || []
+
+  const totalTasks = allTasks.length
+
+  const newTasks = allTasks.filter(
+    (task) => task.newTask === true
+  ).length
+
+  const completedTasks = allTasks.filter(
+    (task) => task.completed === true
+  ).length
+
+  const failedTasks = allTasks.filter(
+    (task) => task.failed === true
+  ).length
 
   return (
 
@@ -81,12 +100,12 @@ const AdminDeshboard = ({
             </p>
 
             <h2 className="
-              text-3xl
-              font-bold
-              mt-2
-            ">
-              24
-            </h2>
+  text-3xl
+  font-bold
+  mt-2
+">
+  {totalTasks}
+</h2>
           </div>
 
 
@@ -105,7 +124,7 @@ const AdminDeshboard = ({
               mt-2
               text-blue-400
             ">
-              8
+              {newTasks}
             </h2>
           </div>
 
@@ -125,7 +144,7 @@ const AdminDeshboard = ({
               mt-2
               text-green-400
             ">
-              12
+              {completedTasks}
             </h2>
           </div>
 
@@ -145,7 +164,7 @@ const AdminDeshboard = ({
               mt-2
               text-red-400
             ">
-              4
+              {failedTasks}
             </h2>
           </div>
 
@@ -302,128 +321,79 @@ const AdminDeshboard = ({
           </div>
 
 
-          {/* Task 1 */}
-
-          <div className="
-            bg-[#111827]
-            p-4
-            rounded-xl
-            mb-3
-            flex
-            justify-between
-            items-center
-          ">
-
-            <div>
-
-              <h3 className="font-semibold">
-                Website Design
-              </h3>
-
-              <p className="
-                text-sm
-                text-gray-400
-              ">
-                Assigned to Dhiraj
-              </p>
-
-            </div>
-
-            <span className="
-              bg-blue-500/20
-              text-blue-400
-              px-3
-              py-1
-              rounded-full
-              text-sm
-            ">
-              New
-            </span>
-
-          </div>
-
-
-          {/* Task 2 */}
-
-          <div className="
-            bg-[#111827]
-            p-4
-            rounded-xl
-            mb-3
-            flex
-            justify-between
-            items-center
-          ">
-
-            <div>
-
-              <h3 className="font-semibold">
-                API Integration
-              </h3>
-
-              <p className="
-                text-sm
-                text-gray-400
-              ">
-                Assigned to Sarthak
-              </p>
-
-            </div>
-
-            <span className="
-              bg-yellow-500/20
-              text-yellow-400
-              px-3
-              py-1
-              rounded-full
-              text-sm
-            ">
-              Accepted
-            </span>
-
-          </div>
-
-
-          {/* Task 3 */}
-
-          <div className="
-            bg-[#111827]
-            p-4
-            rounded-xl
-            flex
-            justify-between
-            items-center
-          ">
-
-            <div>
-
-              <h3 className="font-semibold">
-                Testing
-              </h3>
-
-              <p className="
-                text-sm
-                text-gray-400
-              ">
-                Assigned to Rahul
-              </p>
-
-            </div>
-
-            <span className="
-              bg-green-500/20
-              text-green-400
-              px-3
-              py-1
-              rounded-full
-              text-sm
-            ">
-              Completed
-            </span>
-
-          </div>
 
         </div>
+
+        {allTasks.slice(-3).reverse().map((task) => {
+
+  const employee = UserData.employees.find(
+    (employee) =>
+      employee.tasks.some(
+        (employeeTask) =>
+          employeeTask.taskNumber === task.taskNumber
+      )
+  );
+
+  let status = "New";
+  let statusStyle = "bg-blue-500/20 text-blue-400";
+
+  if (task.completed) {
+    status = "Completed";
+    statusStyle = "bg-green-500/20 text-green-400";
+  }
+  else if (task.failed) {
+    status = "Failed";
+    statusStyle = "bg-red-500/20 text-red-400";
+  }
+  else if (task.accepted) {
+    status = "Accepted";
+    statusStyle = "bg-yellow-500/20 text-yellow-400";
+  }
+
+  return (
+    <div
+      key={`${employee?.id}-${task.taskNumber}`}
+      className="
+        bg-[#111827]
+        p-4
+        rounded-xl
+        mb-3
+        flex
+        justify-between
+        items-center
+      "
+    >
+
+      <div>
+
+        <h3 className="font-semibold">
+          {task.taskTitle}
+        </h3>
+
+        <p className="
+          text-sm
+          text-gray-400
+        ">
+          Assigned to {employee?.name}
+        </p>
+
+      </div>
+
+      <span
+        className={`
+          ${statusStyle}
+          px-3
+          py-1
+          rounded-full
+          text-sm
+        `}
+      >
+        {status}
+      </span>
+
+    </div>
+  );
+})}
 
       </div>
 
