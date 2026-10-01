@@ -47,27 +47,54 @@ const AllTask = ({ setAdminPage }) => {
   // GET ALL TASKS
   // -----------------------------------------
 
-  const allTasks = UserData.employees.flatMap(
-    (employee) => {
+//   const allTasks = UserData.employees.flatMap(
+//     (employee) => {
 
-      return employee.tasks.map(
-        (task) => {
+//       return employee.tasks.map(
+//         (task) => {
 
-          return {
-            ...task,
+//           return {
+//             ...task,
 
-            // Store employee information
-            // so we know who owns the task
-            employeeId: employee.id,
-            employeeName: employee.name,
-            employeeEmail: employee.email
-          };
+//             // Store employee information
+//             // so we know who owns the task
+//             employeeId: employee.id,
+//             employeeName: employee.name,
+//             employeeEmail: employee.email
+//           };
 
-        }
-      );
+//         }
+//       );
 
-    }
-  );
+//     }
+//   );
+
+const allTasks = UserData.employees
+  .flatMap((employee) => {
+
+    return employee.tasks.map((task) => {
+
+      return {
+        ...task,
+
+        employeeId: employee.id,
+        employeeName: employee.name,
+        employeeEmail: employee.email
+      };
+
+    });
+
+  })
+  .sort((a, b) => {
+
+    // New tasks should appear first
+    if (a.newTask && !b.newTask) return -1;
+
+    if (!a.newTask && b.newTask) return 1;
+
+    return 0;
+
+  });
 
 
   // -----------------------------------------

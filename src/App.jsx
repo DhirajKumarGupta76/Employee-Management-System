@@ -61,6 +61,30 @@ function App() {
   // -----------------------------------------
 
 // -----------------------------------------
+// RESTORE LOGIN AFTER REFRESH
+// -----------------------------------------
+
+useEffect(() => {
+
+  const loggedInUser = localStorage.getItem("loggedInUser")
+
+  if (loggedInUser) {
+
+    const user = JSON.parse(loggedInUser)
+
+    console.log("Saved User:", user)
+
+    setUser(user.role)
+
+    if (user.role === "employee" && user.data) {
+      setloggedInUserData(user.data)
+    }
+
+  }
+
+}, [])
+
+// -----------------------------------------
 // SYNC EMPLOYEE DATA AFTER TASK UPDATE
 // -----------------------------------------
 

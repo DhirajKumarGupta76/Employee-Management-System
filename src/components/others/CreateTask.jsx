@@ -185,10 +185,7 @@ const newTaskNumber =
               ...employee,
 
               // Add new task
-              tasks: [
-                ...employee.tasks,
-                newTask
-              ],
+              tasks: [newTask, ...employee.tasks],
 
               // Increase new task count
               taskNumbers: {
