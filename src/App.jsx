@@ -1,84 +1,98 @@
-import { useState } from 'react'
-import { useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import './App.css'
 
 import Login from './components/Auth/Login'
+
 import EmployeeDeshboard from './components/Deshboard/EmployeeDeshboard'
 import AdminDeshboard from './components/Deshboard/AdminDeshboard'
 
+import CreateTask from './components/others/CreateTask'
+import AllTask from './components/others/AllTask'
+
 import { AuthContext } from './context/AuthProvider'
-import React from 'react'
-import { useContext } from 'react'
 
 
 function App() {
 
-  // Stores which type of user is logged in
-  // ""          → Nobody logged in
-  // "admin"     → Admin logged in
-  // "employee"  → Employee logged in
+  // -----------------------------------------
+  // USER ROLE
+  // -----------------------------------------
+
+  // ""          -> nobody logged in
+  // "admin"     -> admin logged in
+  // "employee"  -> employee logged in
+
   const [User, setUser] = useState("")
 
 
-  // Stores the complete data of the logged-in employee
-  // Example:
-  // {
-  //   id,
-  //   name,
-  //   email,
-  //   password,
-  //   tasks,
-  //   taskNumbers
-  // }
+  // -----------------------------------------
+  // LOGGED IN EMPLOYEE DATA
+  // -----------------------------------------
+
   const [loggedInUserData, setloggedInUserData] = useState(null)
 
 
-  // Gets employee/admin data from AuthContext
-  const authData = useContext(AuthContext);
+  // -----------------------------------------
+  // ADMIN PAGE
+  // -----------------------------------------
 
+  // dashboard -> Admin Dashboard
+  // create    -> Create Task
+  // allTasks  -> All Tasks
 
-  console.log("authData:", authData);
-  console.log("User:", User);
-  console.log("loggedInUserData:", loggedInUserData);
+  const [adminPage, setAdminPage] = useState("dashboard")
 
 
   // -----------------------------------------
-  // CHECK USER AFTER REFRESH
+  // AUTH CONTEXT
   // -----------------------------------------
 
-  useEffect(() => {
-      // localStorage.clear()
-
-    // Get saved login information
-    const loggedInUser = localStorage.getItem("loggedInUser");
+  const authData = useContext(AuthContext)
 
 
-    if (loggedInUser) {
-
-      // Convert string back into JavaScript object
-      const user = JSON.parse(loggedInUser);
-
-      console.log("Saved User:", user);
+  console.log("authData:", authData)
+  console.log("User:", User)
+  console.log("loggedInUserData:", loggedInUserData)
+  console.log("adminPage:", adminPage)
 
 
-      // Restore role
-      setUser(user.role);
+  // -----------------------------------------
+  // RESTORE LOGIN AFTER REFRESH
+  // -----------------------------------------
 
+// -----------------------------------------
+// SYNC EMPLOYEE DATA AFTER TASK UPDATE
+// -----------------------------------------
 
-      // Restore employee data
-      if (user.role === "employee" && user.data) {
+useEffect(() => {
 
-        setloggedInUserData(user.data);
+  if (
+    User === "employee" &&
+    loggedInUserData &&
+    authData &&
+    authData.UserData &&
+    authData.UserData.employees
+  ) {
 
-      }
+    const updatedEmployee =
+      authData.UserData.employees.find(
+        (employee) =>
+          employee.id === loggedInUserData.id
+      )
+
+    if (updatedEmployee) {
+
+      setloggedInUserData(updatedEmployee)
 
     }
 
-  }, []);
+  }
+
+}, [authData.UserData, User, loggedInUserData])
 
 
   // -----------------------------------------
-  // LOGIN FUNCTION
+  // LOGIN
   // -----------------------------------------
 
   const handleLogin = (email, password) => {
@@ -88,22 +102,30 @@ function App() {
     // ADMIN LOGIN
     // -----------------------------------------
 
-    if (email === 'admin@me.com' && password === '123') {
+    if (
+      email === "admin@me.com" &&
+      password === "123"
+    ) {
 
-      setUser('admin');
-
-      console.log("Admin logged in");
+      console.log("Admin logged in")
 
 
-      // Save admin role
+      setUser("admin")
+
+      // Always start admin from dashboard
+      setAdminPage("dashboard")
+
+
+      // Save admin login
       localStorage.setItem(
-        'loggedInUser',
+        "loggedInUser",
         JSON.stringify({
-          role: 'admin'
+          role: "admin"
         })
-      );
+      )
 
-      return;
+      return
+
     }
 
 
@@ -111,80 +133,148 @@ function App() {
     // EMPLOYEE LOGIN
     // -----------------------------------------
 
-    if (authData && authData.UserData) {
-      
+    if (
+      authData &&
+      authData.UserData &&
+      authData.UserData.employees
+    ) {
 
-      console.log('This is User');
-
-
-      const employee = authData.UserData.employees.find(
-        (e) => e.email === email && e.password === password
-      );
+      const employee =
+        authData.UserData.employees.find(
+          (e) =>
+            e.email === email &&
+            e.password === password
+        )
 
 
       if (employee) {
 
-        console.log("Employee found:", employee);
+        console.log(
+          "Employee found:",
+          employee
+        )
 
 
-        // Store employee role
-        setUser('employee');
+        setUser("employee")
+
+        setloggedInUserData(employee)
 
 
-        // Store complete employee data in React state
-        setloggedInUserData(employee);
-
-
-        // Save role + employee data
-        // This is used to restore login after refresh
+        // Save employee login
         localStorage.setItem(
-          'loggedInUser',
+          "loggedInUser",
           JSON.stringify({
-            role: 'employee',
+            role: "employee",
             data: employee
           })
-        );
+        )
 
 
-        console.log(
-          "Saved Login:",
-          JSON.parse(localStorage.getItem("loggedInUser"))
-        );
+        return
 
-        return;
       }
 
     }
 
 
-    // If no admin or employee was found
-    alert("Invalid person");
+    // -----------------------------------------
+    // INVALID LOGIN
+    // -----------------------------------------
+
+    alert("Invalid person")
 
   }
 
 
   // -----------------------------------------
-  // DISPLAY
+  // LOGOUT
+  // -----------------------------------------
+
+  const handleLogout = () => {
+
+    localStorage.removeItem("loggedInUser")
+
+    setUser("")
+
+    setloggedInUserData(null)
+
+    setAdminPage("dashboard")
+
+  }
+
+
+  // -----------------------------------------
+  // UI
   // -----------------------------------------
 
   return (
     <>
 
-      {/* Show Login when nobody is logged in */}
+      {/* -------------------------------- */}
+      {/* LOGIN */}
+      {/* -------------------------------- */}
+
       {!User && (
-        <Login handleLogin={handleLogin} />
+        <Login
+          handleLogin={handleLogin}
+        />
       )}
 
 
-      {/* Show Admin Dashboard */}
-      {User === "admin" && (
-        <AdminDeshboard />
+      {/* -------------------------------- */}
+      {/* ADMIN DASHBOARD */}
+      {/* -------------------------------- */}
+
+      {User === "admin" &&
+        adminPage === "dashboard" && (
+
+          <AdminDeshboard
+            setAdminPage={setAdminPage}
+            handleLogout={handleLogout}
+          />
+
       )}
 
 
-      {/* Show Employee Dashboard */}
-      {User === "employee" && loggedInUserData && (
-        <EmployeeDeshboard data={loggedInUserData} />
+      {/* -------------------------------- */}
+      {/* CREATE TASK */}
+      {/* -------------------------------- */}
+
+      {User === "admin" &&
+        adminPage === "create" && (
+
+          <CreateTask
+            setAdminPage={setAdminPage}
+          />
+
+      )}
+
+
+      {/* -------------------------------- */}
+      {/* ALL TASKS */}
+      {/* -------------------------------- */}
+
+      {User === "admin" &&
+        adminPage === "allTasks" && (
+
+          <AllTask
+            setAdminPage={setAdminPage}
+          />
+
+      )}
+
+
+      {/* -------------------------------- */}
+      {/* EMPLOYEE DASHBOARD */}
+      {/* -------------------------------- */}
+
+      {User === "employee" &&
+        loggedInUserData && (
+
+          <EmployeeDeshboard
+            data={loggedInUserData}
+          />
+
       )}
 
     </>

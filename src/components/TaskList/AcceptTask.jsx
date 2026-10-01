@@ -1,6 +1,10 @@
 import React from "react";
 
-const AcceptTask = ({ task, onComplete, onFail }) => {
+const AcceptTask = ({ task, onAccept, onComplete, onFail }) => {
+
+  const handleAccept = () => {
+    onAccept(task.taskNumber);
+  };
 
   const handleComplete = () => {
     onComplete(task.taskNumber);
@@ -70,6 +74,27 @@ const AcceptTask = ({ task, onComplete, onFail }) => {
 
       {/* Action Buttons */}
       <div className="flex gap-4 mt-5">
+
+        {/* Accept Button */}
+        <button
+          onClick={handleAccept}
+          className="
+            px-5
+            py-2.5
+            bg-blue-900
+            text-white
+            font-semibold
+            rounded-lg
+            hover:bg-blue-700
+            active:scale-95
+            transition-all
+            duration-200
+            shadow-md
+          "
+        >
+          ✓ Accept Task
+        </button>
+
 
         {/* Complete Button */}
         <button

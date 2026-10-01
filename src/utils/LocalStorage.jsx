@@ -15,6 +15,7 @@ const Employees = [
     },
 
     tasks: [
+
       {
         taskNumber: 101,
         taskType: "New",
@@ -447,15 +448,47 @@ const Admin = [
 ];
 
 export const setLocalStorage = () => {
-  localStorage.setItem("employee", JSON.stringify(Employees));
-  localStorage.setItem("admin", JSON.stringify(Admin));
+
+  // Check if employee data already exists
+  const existingEmployees = localStorage.getItem("employee");
+
+  // Only create initial data if it does not exist
+  if (!existingEmployees) {
+    localStorage.setItem(
+      "employee",
+      JSON.stringify(Employees)
+    );
+  }
+
+
+  // Check if admin data already exists
+  const existingAdmin = localStorage.getItem("admin");
+
+  // Only create initial data if it does not exist
+  if (!existingAdmin) {
+    localStorage.setItem(
+      "admin",
+      JSON.stringify(Admin)
+    );
+  }
+
 };
+
 
 export const getLocalStorage = () => {
-  const employees = JSON.parse(localStorage.getItem("employee"));
-  const admin = JSON.parse(localStorage.getItem("admin"));
 
-  return { employees, admin };
+  const employees = JSON.parse(
+    localStorage.getItem("employee")
+  );
+
+  const admin = JSON.parse(
+    localStorage.getItem("admin")
+  );
+
+
+  return {
+    employees,
+    admin
+  };
+
 };
- 
-

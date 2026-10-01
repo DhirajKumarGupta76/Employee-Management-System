@@ -1,418 +1,435 @@
-import React from "react";
-import Header from "../others/Header";
+import React from 'react'
+import Header from '../others/Header'
 
-const CreateTask = () => {
-  // Handle form submission
-  const submitHandler = (e) => {
-    e.preventDefault();
 
-    console.log("Task Created");
-  };
+const AdminDeshboard = ({
+  setAdminPage,
+  handleLogout
+}) => {
 
   return (
-    <>
-    <Header />
-    
 
-     {/* // Main Page */}
-    <div className="min-h-screen w-full bg-[#0f0f0f] text-white flex items-center justify-center p-8 flex-col m-0">
+    <div className="min-h-screen bg-[#111827] text-white">
 
-       
+      <Header />
 
-      {/* ================= CREATE TASK CARD ================= */}
-      <div
-        className="
-          w-full
-          max-w-4xl
-          bg-[#1231]
-          border
-          border-gray-700
-          rounded-2xl
-          shadow-2xl
-          p-8
-          md:p-10
-        "
-      >
+      <div className="p-6">
 
-        {/* ================= HEADER ================= */}
-        <div className="flex items-center gap-4 mb-8">
+        {/* Welcome */}
 
-          {/* Back Button */}
-          <button
-            type="button"
-            className="
-              w-10
-              h-10
-              rounded-full
-              border
-              border-gray-500
-              flex
-              items-center
-              justify-center
-              text-xl
-              hover:bg-white
-              hover:text-black
-              transition
-              duration-300
-            "
-          >
-            ←
-          </button>
+        <div className="
+          flex
+          items-center
+          justify-between
+          mb-8
+        ">
 
-          {/* Heading */}
           <div>
-            <h1 className="text-3xl md:text-4xl font-bold">
-              Create Task
+
+            <h1 className="
+              text-3xl
+              font-bold
+            ">
+              Admin Dashboard 👋
             </h1>
 
-            <p className="text-gray-400 mt-1">
-              Assign a new task to an employee
+            <p className="
+              text-gray-400
+              mt-2
+            ">
+              Manage employees and tasks from here.
             </p>
+
+          </div>
+
+
+          <button
+            onClick={handleLogout}
+            className="
+              bg-red-500
+              hover:bg-red-600
+              px-5
+              py-2
+              rounded-lg
+              font-semibold
+            "
+          >
+            Logout
+          </button>
+
+        </div>
+
+
+        {/* Statistics */}
+
+        <div className="
+          grid
+          grid-cols-1
+          md:grid-cols-2
+          lg:grid-cols-4
+          gap-5
+          mb-8
+        ">
+
+          <div className="
+            bg-[#1f2937]
+            p-6
+            rounded-2xl
+          ">
+            <p className="text-gray-400">
+              Total Tasks
+            </p>
+
+            <h2 className="
+              text-3xl
+              font-bold
+              mt-2
+            ">
+              24
+            </h2>
+          </div>
+
+
+          <div className="
+            bg-[#1f2937]
+            p-6
+            rounded-2xl
+          ">
+            <p className="text-gray-400">
+              New Tasks
+            </p>
+
+            <h2 className="
+              text-3xl
+              font-bold
+              mt-2
+              text-blue-400
+            ">
+              8
+            </h2>
+          </div>
+
+
+          <div className="
+            bg-[#1f2937]
+            p-6
+            rounded-2xl
+          ">
+            <p className="text-gray-400">
+              Completed
+            </p>
+
+            <h2 className="
+              text-3xl
+              font-bold
+              mt-2
+              text-green-400
+            ">
+              12
+            </h2>
+          </div>
+
+
+          <div className="
+            bg-[#1f2937]
+            p-6
+            rounded-2xl
+          ">
+            <p className="text-gray-400">
+              Failed
+            </p>
+
+            <h2 className="
+              text-3xl
+              font-bold
+              mt-2
+              text-red-400
+            ">
+              4
+            </h2>
           </div>
 
         </div>
 
 
-        {/* ================= FORM ================= */}
-        <form
-          onSubmit={submitHandler}
-          className="space-y-6"
-        >
+        {/* Quick Actions */}
 
-          {/* First Row */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="mb-8">
 
-            {/* Task Title */}
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">
-                Task Title
-              </label>
-
-              <input
-                type="text"
-                required
-                placeholder="Make a UI design"
-                className="
-                  w-full
-                  bg-[#292929]
-                  border
-                  border-gray-700
-                  rounded-xl
-                  px-4
-                  py-3
-                  text-white
-                  placeholder-gray-500
-                  outline-none
-                  focus:border-blue-500
-                  focus:ring-2
-                  focus:ring-blue-500/20
-                  transition
-                "
-              />
-            </div>
+          <h2 className="
+            text-2xl
+            font-bold
+            mb-5
+          ">
+            Quick Actions
+          </h2>
 
 
-            {/* Date */}
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">
-                Due Date
-              </label>
-
-              <input
-                type="date"
-                required
-                className="
-                  w-full
-                  bg-[#292929]
-                  border
-                  border-gray-700
-                  rounded-xl
-                  px-4
-                  py-3
-                  text-white
-                  outline-none
-                  focus:border-blue-500
-                  focus:ring-2
-                  focus:ring-blue-500/20
-                  transition
-                "
-              />
-            </div>
-
-          </div>
+          <div className="
+            grid
+            grid-cols-1
+            md:grid-cols-3
+            gap-5
+          ">
 
 
-          {/* ================= DESCRIPTION ================= */}
-          <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
-              Description
-            </label>
+            {/* Create Task */}
 
-            <textarea
-              required
-              rows="5"
-              placeholder="Write a detailed description of the task (Max 500 words)"
+            <button
+              onClick={() => setAdminPage("create")}
               className="
-                w-full
-                bg-[#292929]
-                border
-                border-gray-700
-                rounded-xl
-                px-4
-                py-3
-                text-white
-                placeholder-gray-500
-                resize-none
-                outline-none
-                focus:border-blue-500
-                focus:ring-2
-                focus:ring-blue-500/20
-                transition
+                bg-blue-600
+                hover:bg-blue-700
+                p-6
+                rounded-2xl
+                text-left
               "
-            ></textarea>
+            >
 
-            {/* Character information */}
-            <p className="text-xs text-gray-500 mt-2">
-              Maximum 500 words
-            </p>
+              <h3 className="
+                text-xl
+                font-bold
+              ">
+                + Create Task
+              </h3>
+
+              <p className="
+                text-blue-100
+                mt-2
+              ">
+                Assign a new task to an employee.
+              </p>
+
+            </button>
+
+
+            {/* All Tasks */}
+
+            <button
+              onClick={() => setAdminPage("allTasks")}
+              className="
+                bg-purple-600
+                hover:bg-purple-700
+                p-6
+                rounded-2xl
+                text-left
+              "
+            >
+
+              <h3 className="
+                text-xl
+                font-bold
+              ">
+                📋 All Tasks
+              </h3>
+
+              <p className="
+                text-purple-100
+                mt-2
+              ">
+                View and manage all employee tasks.
+              </p>
+
+            </button>
+
+
+            {/* Employees */}
+
+            <button
+              className="
+                bg-green-600
+                hover:bg-green-700
+                p-6
+                rounded-2xl
+                text-left
+              "
+            >
+
+              <h3 className="
+                text-xl
+                font-bold
+              ">
+                👥 Employees
+              </h3>
+
+              <p className="
+                text-green-100
+                mt-2
+              ">
+                View all employees and their work.
+              </p>
+
+            </button>
+
+          </div>
+
+        </div>
+
+
+        {/* Recent Tasks */}
+
+        <div className="
+          bg-[#1f2937]
+          rounded-2xl
+          p-6
+        ">
+
+          <div className="
+            flex
+            justify-between
+            items-center
+            mb-5
+          ">
+
+            <h2 className="
+              text-2xl
+              font-bold
+            ">
+              Recent Tasks
+            </h2>
+
+
+            <button
+              onClick={() => setAdminPage("allTasks")}
+              className="
+                text-blue-400
+                hover:text-blue-300
+              "
+            >
+              View All
+            </button>
+
           </div>
 
 
-          {/* ================= SECOND ROW ================= */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Task 1 */}
 
-            {/* Assign Employee */}
+          <div className="
+            bg-[#111827]
+            p-4
+            rounded-xl
+            mb-3
+            flex
+            justify-between
+            items-center
+          ">
+
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">
-                Assign To
-              </label>
 
-              <select
-                required
-                className="
-                  w-full
-                  bg-[#292929]
-                  border
-                  border-gray-700
-                  rounded-xl
-                  px-4
-                  py-3
-                  text-gray-300
-                  outline-none
-                  focus:border-blue-500
-                  focus:ring-2
-                  focus:ring-blue-500/20
-                  transition
-                "
-              >
-                <option value="">
-                  Select Employee
-                </option>
+              <h3 className="font-semibold">
+                Website Design
+              </h3>
 
-                <option value="dhiraj">
-                  Dhiraj Kumar
-                </option>
+              <p className="
+                text-sm
+                text-gray-400
+              ">
+                Assigned to Dhiraj
+              </p>
 
-                <option value="sarthak">
-                  Sarthak
-                </option>
-
-                <option value="rahul">
-                  Rahul
-                </option>
-              </select>
             </div>
 
+            <span className="
+              bg-blue-500/20
+              text-blue-400
+              px-3
+              py-1
+              rounded-full
+              text-sm
+            ">
+              New
+            </span>
 
-            {/* Category */}
+          </div>
+
+
+          {/* Task 2 */}
+
+          <div className="
+            bg-[#111827]
+            p-4
+            rounded-xl
+            mb-3
+            flex
+            justify-between
+            items-center
+          ">
+
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">
-                Category
-              </label>
 
-              <select
-                required
-                className="
-                  w-full
-                  bg-[#292929]
-                  border
-                  border-gray-700
-                  rounded-xl
-                  px-4
-                  py-3
-                  text-gray-300
-                  outline-none
-                  focus:border-blue-500
-                  focus:ring-2
-                  focus:ring-blue-500/20
-                  transition
-                "
-              >
-                <option value="">
-                  Select Category
-                </option>
+              <h3 className="font-semibold">
+                API Integration
+              </h3>
 
-                <option value="design">
-                  Design
-                </option>
+              <p className="
+                text-sm
+                text-gray-400
+              ">
+                Assigned to Sarthak
+              </p>
 
-                <option value="development">
-                  Development
-                </option>
-
-                <option value="testing">
-                  Testing
-                </option>
-
-                <option value="documentation">
-                  Documentation
-                </option>
-              </select>
             </div>
+
+            <span className="
+              bg-yellow-500/20
+              text-yellow-400
+              px-3
+              py-1
+              rounded-full
+              text-sm
+            ">
+              Accepted
+            </span>
 
           </div>
 
 
-          {/* ================= PRIORITY ================= */}
-          <div>
-            <label className="block text-sm font-medium text-gray-300 mb-3">
-              Priority
-            </label>
+          {/* Task 3 */}
 
-            <div className="flex flex-wrap gap-3">
+          <div className="
+            bg-[#111827]
+            p-4
+            rounded-xl
+            flex
+            justify-between
+            items-center
+          ">
 
-              {/* Low */}
-              <label className="cursor-pointer">
-                <input
-                  type="radio"
-                  name="priority"
-                  value="low"
-                  className="peer hidden"
-                />
+            <div>
 
-                <span
-                  className="
-                    inline-block
-                    px-5
-                    py-2
-                    rounded-lg
-                    bg-[#292929]
-                    border
-                    border-gray-700
-                    text-gray-400
-                    peer-checked:bg-green-600
-                    peer-checked:text-white
-                    peer-checked:border-green-500
-                    transition
-                  "
-                >
-                  Low
-                </span>
-              </label>
+              <h3 className="font-semibold">
+                Testing
+              </h3>
 
-
-              {/* Medium */}
-              <label className="cursor-pointer">
-                <input
-                  type="radio"
-                  name="priority"
-                  value="medium"
-                  className="peer hidden"
-                />
-
-                <span
-                  className="
-                    inline-block
-                    px-5
-                    py-2
-                    rounded-lg
-                    bg-[#292929]
-                    border
-                    border-gray-700
-                    text-gray-400
-                    peer-checked:bg-yellow-600
-                    peer-checked:text-white
-                    peer-checked:border-yellow-500
-                    transition
-                  "
-                >
-                  Medium
-                </span>
-              </label>
-
-
-              {/* High */}
-              <label className="cursor-pointer">
-                <input
-                  type="radio"
-                  name="priority"
-                  value="high"
-                  defaultChecked
-                  className="peer hidden"
-                />
-
-                <span
-                  className="
-                    inline-block
-                    px-5
-                    py-2
-                    rounded-lg
-                    bg-[#292929]
-                    border
-                    border-gray-700
-                    text-gray-400
-                    peer-checked:bg-red-600
-                    peer-checked:text-white
-                    peer-checked:border-red-500
-                    transition
-                  "
-                >
-                  High
-                </span>
-              </label>
+              <p className="
+                text-sm
+                text-gray-400
+              ">
+                Assigned to Rahul
+              </p>
 
             </div>
+
+            <span className="
+              bg-green-500/20
+              text-green-400
+              px-3
+              py-1
+              rounded-full
+              text-sm
+            ">
+              Completed
+            </span>
+
           </div>
 
-
-          {/* ================= CREATE BUTTON ================= */}
-          <button
-            type="submit"
-            className="
-              w-full
-              bg-gradient-to-r
-              from-blue-600
-              to-indigo-600
-              hover:from-blue-700
-              hover:to-indigo-700
-              text-white
-              font-semibold
-              py-3.5
-              rounded-xl
-              shadow-lg
-              shadow-blue-500/20
-              hover:shadow-blue-500/40
-              hover:scale-[1.01]
-              transition
-              duration-300
-            "
-          >
-            Create Task
-          </button>
-
-        </form>
+        </div>
 
       </div>
 
     </div>
+  )
+}
 
 
-
-    </>
-   
-
-   
-  );
-};
-
-export default CreateTask;
+export default AdminDeshboard
