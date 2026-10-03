@@ -15,6 +15,33 @@ The React Compiler is not enabled on this template because of its impact on dev 
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
 
+
+## How to Login
+
+### Admin
+Use the following demo account:
+
+- Email: `admin@gmail.com`
+- Password: `123`
+
+Admin can:
+- Create tasks
+- Assign tasks to employees
+- View all tasks
+- Monitor task statistics
+
+### Employee
+Use the following demo account:
+
+- Email: `employee1@gmail.com`
+- Password: `123`
+
+Employee can:
+- View assigned tasks
+- Accept tasks
+- Complete tasks
+- Mark tasks as failed
+
 ## FLOW OF This Project
                     App.jsx
                        |
@@ -209,3 +236,10 @@ If we open the same project in another browser, such as Edge, it will have its *
 When our application starts, `setLocalStorage()` checks whether employee and admin data already exists in that browser. If it doesn't exist, it stores the initial employee and admin data there. After that, `getLocalStorage()` reads that data and `setUserData(data)` puts the complete data into our React Context.
 
 Therefore, our current project is **not using a shared database**. The data is local to each browser/origin. If we want multiple users or different browsers to see the **same tasks, employees, and updates**, we would need a **backend and database**, such as Node.js/Express with MongoDB. Then all browsers would communicate with the backend, and the backend would store and provide the common data.
+
+# Employee Management System
+
+## How to Use
+
+## How to Login
+
