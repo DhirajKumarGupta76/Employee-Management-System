@@ -9,14 +9,14 @@ import {
   setLocalStorage
 } from "../utils/LocalStorage";
 
-
+//Provide UserData and setUserData.
 export const AuthContext = createContext();
 
 
 const AuthProvider = ({ children }) => {
 
   // -----------------------------------------
-  // USER DATA
+  // stores all employees + admin inside the UserData state.
   // -----------------------------------------
 
   const [UserData, setUserData] = useState(null);
@@ -42,6 +42,7 @@ const AuthProvider = ({ children }) => {
 
 
   }, []);
+
 
 
   console.log("UserData:", UserData);

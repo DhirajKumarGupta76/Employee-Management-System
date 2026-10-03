@@ -15,7 +15,7 @@ import { AuthContext } from './context/AuthProvider'
 function App() {
 
   // -----------------------------------------
-  // USER ROLE
+  // USER ROLE ->"What type of user is logged in?"
   // -----------------------------------------
 
   // ""          -> nobody logged in
@@ -26,7 +26,7 @@ function App() {
 
 
   // -----------------------------------------
-  // LOGGED IN EMPLOYEE DATA
+  // LOGGED IN EMPLOYEE DATA ->stores that complete employee data as id,name ,password e.t.c.
   // -----------------------------------------
 
   const [loggedInUserData, setloggedInUserData] = useState(null)
@@ -44,7 +44,7 @@ function App() {
 
 
   // -----------------------------------------
-  // AUTH CONTEXT
+  // AUTH CONTEXT ->is used to get the data shared by your AuthProvider.Any component inside this provider can access UserData and setUserData."
   // -----------------------------------------
 
   const authData = useContext(AuthContext)
@@ -56,9 +56,7 @@ function App() {
   console.log("adminPage:", adminPage)
 
 
-  // -----------------------------------------
-  // RESTORE LOGIN AFTER REFRESH
-  // -----------------------------------------
+  
 
 // -----------------------------------------
 // RESTORE LOGIN AFTER REFRESH
@@ -85,7 +83,11 @@ useEffect(() => {
 }, [])
 
 // -----------------------------------------
-// SYNC EMPLOYEE DATA AFTER TASK UPDATE
+// SYNC EMPLOYEE DATA AFTER TASK
+//  UPDATE Keeps the logged-in employee's data updated
+// whenever employee data changes in AuthContext.
+// This is important when tasks are accepted,
+// completed, or failed.
 // -----------------------------------------
 
 useEffect(() => {
@@ -93,26 +95,56 @@ useEffect(() => {
   if (
     User === "employee" &&
     loggedInUserData &&
-    authData &&
-    authData.UserData &&
-    authData.UserData.employees
+    authData?.UserData?.employees
   ) {
 
     const updatedEmployee =
       authData.UserData.employees.find(
-        (employee) =>
-          employee.id === loggedInUserData.id
+        (employee) => employee.id === loggedInUserData.id
       )
 
     if (updatedEmployee) {
-
       setloggedInUserData(updatedEmployee)
 
+      // Also keep localStorage updated
+      localStorage.setItem(
+        "loggedInUser",
+        JSON.stringify({
+          role: "employee",
+          data: updatedEmployee
+        })
+      )
     }
 
   }
 
-}, [authData.UserData, User, loggedInUserData])
+}, [authData?.UserData, User])  //Run this useEffect again when any of these values change.
+
+// useEffect(() => {
+
+//   if (
+//     User === "employee" &&
+//     loggedInUserData &&
+//     authData &&
+//     authData.UserData &&
+//     authData.UserData.employees
+//   ) {
+
+//     const updatedEmployee =
+//       authData.UserData.employees.find(
+//         (employee) =>
+//           employee.id === loggedInUserData.id
+//       )
+
+//     if (updatedEmployee) {
+
+//       setloggedInUserData(updatedEmployee)
+
+//     }
+
+//   }
+
+// }, [authData.UserData, User, loggedInUserData])
 
 
   // -----------------------------------------

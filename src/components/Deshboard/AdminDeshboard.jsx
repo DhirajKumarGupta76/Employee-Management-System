@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import Header from '../others/Header'
+// import Header from '../others/Header'
 import { AuthContext } from '../../context/AuthProvider'
 
 const AdminDeshboard = ({
@@ -30,7 +30,7 @@ const AdminDeshboard = ({
 
     <div className="min-h-screen bg-[#111827] text-white">
 
-      <Header />
+      {/* <Header /> */}
 
       <div className="p-6">
 
@@ -173,7 +173,7 @@ const AdminDeshboard = ({
 
         {/* Quick Actions */}
 
-        <div className="mb-8">
+        <div className=" gap-2.5">
 
           <h2 className="
             text-2xl
@@ -286,43 +286,36 @@ const AdminDeshboard = ({
 
 
         {/* Recent Tasks */}
+ <h2 className="text-2xl font-extrabold text-4xl">
+      Recent Tasks
+    </h2>
+<div className="
+  bg-[#1f2937]
+  rounded-2xl
+  p-6
+  min-h-32
+  flex
+  justify-center
+  items-center
+  font-extrabold 
+ 
+">
+  
 
-        <div className="
-          bg-[#1f2937]
-          rounded-2xl
-          p-6
-        ">
+  <div className="flex flex-col items-center">
 
-          <div className="
-            flex
-            justify-between
-            items-center
-            mb-5
-          ">
+   
 
-            <h2 className="
-              text-2xl
-              font-bold
-            ">
-              Recent Tasks
-            </h2>
+    <button
+      onClick={() => setAdminPage("allTasks")}
+      className="text-blue-400 hover:text-blue-300 text-3xl"
+    >
+      View All
+    </button>
 
+  </div>
 
-            <button
-              onClick={() => setAdminPage("allTasks")}
-              className="
-                text-blue-400
-                hover:text-blue-300
-              "
-            >
-              View All
-            </button>
-
-          </div>
-
-
-
-        </div>
+</div>
 
         {allTasks.slice(-3).reverse().map((task) => {
 

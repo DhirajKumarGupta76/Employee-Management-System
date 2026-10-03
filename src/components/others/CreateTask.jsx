@@ -6,7 +6,7 @@ import { AuthContext } from "../../context/AuthProvider";
 const CreateTask = ({ setAdminPage }) => {
 
   // -----------------------------------------
-  // GET DATA FROM AUTH CONTEXT
+  // GET DATA FROM AUTH CONTEXT -> UserData = complete application user data UserData ->ALL employees + admin
   // -----------------------------------------
 
   const {
@@ -17,6 +17,14 @@ const CreateTask = ({ setAdminPage }) => {
 
   // -----------------------------------------
   // FORM STATES
+//   Title       → Build Login Page
+// Date        → 05/10/2026
+// Description → Create React login page
+// Employee    → Dhiraj
+// Category    → Development
+// Priority    → High
+
+// These values are temporarily held in React state:
   // -----------------------------------------
 
   const [taskTitle, setTaskTitle] = useState("");
@@ -83,7 +91,7 @@ const CreateTask = ({ setAdminPage }) => {
 
     const employee = UserData.employees.find(
       (employee) =>
-        employee.id === Number(selectedEmployee)
+        employee.id === Number(selectedEmployee) //find the specific employee selected by the admin.
     );
 
 
@@ -105,8 +113,6 @@ const CreateTask = ({ setAdminPage }) => {
 //   (employee) =>
 //     employee.id === Number(selectedEmployee)
 // );
-
-
 // Find the highest task number
 // of this employee only
 let highestTaskNumber = employee.id * 100;
@@ -166,8 +172,21 @@ const newTaskNumber =
     );
 
 
-    // ---------------------------------------
-    // UPDATE EMPLOYEE
+    
+    // UPDATE EMPLOYEE ..it recieves
+//     return { updated employee }
+//           ↓
+//        map()
+//           ↓
+// updatedEmployees
+//           ↓
+// updatedUserData
+//           ↓
+// setUserData(updatedUserData)
+//           ↓
+// React Context
+//           ↓
+// All components using UserData
     // ---------------------------------------
 
     const updatedEmployees =
@@ -179,8 +198,9 @@ const newTaskNumber =
             employee.id ===
             Number(selectedEmployee)
           ) {
-
+// it gives  updated task and taskNumber to a updatedEmployess
             return {
+              //Copy all existing information of salected employee.
 
               ...employee,
 
@@ -216,7 +236,7 @@ const newTaskNumber =
     const updatedUserData = {
 
       ...UserData,
-
+ // replaces old employees
       employees: updatedEmployees
 
     };
