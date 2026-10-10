@@ -242,4 +242,5 @@ Therefore, our current project is **not using a shared database**. The data is l
 ## How to Use
 
 ## How to Login
-
+ ## Add Dicription
+React-based Employee Management System with admin and employee roles. Admins can create, assign, and monitor tasks, while employees can accept, complete, or fail tasks. Built with React, JavaScript, Tailwind CSS, Context API, and LocalStorage. Includes demo login credentials for both roles.
